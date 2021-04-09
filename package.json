@@ -1,0 +1,23 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "Application to view and manage the departments, roles, and employees in my company",
+  "main": "employeeTracker.js",
+  "scripts": {
+    "test": "Jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NohaAshraf85/Employee-Tracker.git"
+  },
+  "author": "Noha Ashraf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NohaAshraf85/Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/NohaAshraf85/Employee-Tracker#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1"
+  }
+}
