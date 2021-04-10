@@ -20,14 +20,13 @@ INSERT INTO department (name)
 VALUES ("Engineering");
 
 -- role table
-INSERT INTO role (title, salary)
-VALUES ("HR Associate", "10,000");
+select title, salary, name from role inner join department on department_id=department.id ;
 
-INSERT INTO role (title, salary)
-VALUES ("Sales Lead", "100,000");
+INSERT INTO role (title, salary,department_id)
+VALUES ("Sales Lead", "100000", 4);
 
-INSERT INTO role (title, salary)
-VALUE ("Lead Engineer", "150,000");
+INSERT INTO role (title, salary,department_id)
+VALUE ("Lead Engineer", "150000", 6);
 
 -- employee table
 INSERT INTO employee (first_name, last_name)
