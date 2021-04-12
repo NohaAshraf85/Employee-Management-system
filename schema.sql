@@ -33,5 +33,7 @@ CREATE TABLE employee(
 );
 
 
-
-select name as departmentname, title,salary from role inner join department on department.id=department_id
+SELECT * FROM department;
+SELECT * FROM role;
+SELECT * FROM employee;
+-- select name as departmentname, title,salary from role inner join department on department.id=department_id

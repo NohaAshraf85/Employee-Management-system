@@ -17,7 +17,7 @@ connection.connect((err) => {
 
 const start = () => {
     inquirer
-        .promt({
+        .prompt({
             type: "list",
             name: "action",
             message: "What would you like to do?",
@@ -69,9 +69,15 @@ const start = () => {
 };
 
 const employeeSearch = () => {
-    inquirer
-        .promt({
+    const query = 
+        "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id	=department.id";
+        console.log("Hello")
+        connection.query(query, (err, res) => {
+            if (err) throw err;
+            res.forEach(({ id, first_name, last_name, title, department_name, salary, employee_manager }) => {
+                console.table(res);
 
-    })
-}
-
+            });
+            start();
+        });
+    };

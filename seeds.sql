@@ -29,11 +29,11 @@ INSERT INTO role (title, salary,department_id)
 VALUE ("Lead Engineer", "150000", 6);
 
 -- employee table
-INSERT INTO employee (first_name, last_name)
-VALUE ("Mike", "Chan");
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUE ("Mike", "Chan", 1, null);
 
-INSERT INTO employee (first_name, last_name)
-VALUE ("Ashley", "Rodriguez");
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUE ("Ashley", "Rodriguez", 2, 1);
 
-INSERT INTO employee (first_name, last_name)
-VALUE ("Malia", "Brown"); 
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUE ("Malia", "Brown", 2, null); 
