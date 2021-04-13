@@ -102,12 +102,34 @@ const departmentSearch = () => {
         .then((answer) => {
         const query = "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
         connection.query(query, { departmentname: answer.input }, (err, res) => {
-           console.log("Hello");
             console.table(res);
             start();
         });
         });
     };
+
+    const managerSearch = () => {
+        inquirer
+            .prompt({
+                type: "list",
+                name: "input",
+                message: "What would you like to do?",
+                choices:[
+                    "Mike Chan",
+                    "Ashley Rodriguez",
+                    "Malia Brown",
+                    "Tom Allen"
+                ]
+            })
+            .then((answer) => {
+            const query = "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
+            connection.query(query, { manager: answer.input }, (err, res) => {
+               console.log("Hello");
+                console.table(res);
+                start();
+            });
+            });
+        };
 
 //     const departmentSearch = () => {
 //     const query = 
