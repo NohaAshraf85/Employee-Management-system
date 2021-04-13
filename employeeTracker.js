@@ -24,7 +24,7 @@ const start = () => {
             choices:[
                 "View all employees",
                 "View all employees by department",
-                "View all emplotees by manager",
+                "View all employees by manager",
                 "Add employee",
                 "Remove employee",
                 "Update employee role",
@@ -41,7 +41,7 @@ const start = () => {
                 departmentSearch();
                 break;
                 
-            case "View all emplotees by manager":
+            case "View all employees by manager":
                 managerSearch();
                 break;
 
@@ -71,13 +71,66 @@ const start = () => {
 const employeeSearch = () => {
     const query = 
         "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id	=department.id";
-        console.log("Hello")
         connection.query(query, (err, res) => {
             if (err) throw err;
-            res.forEach(({ id, first_name, last_name, title, department_name, salary, employee_manager }) => {
-                console.table(res);
-
-            });
+            // res.forEach(({ id, first_name, last_name, title, department_name, salary, employee_manager }) => {
+            //     console.log("This should happen one time");
+            //     console.table(res);
+            
+            // });
+            console.table(res);
             start();
         });
     };
+
+const departmentSearch = () => {
+    inquirer
+        .prompt({
+            type: "list",
+            name: "input",
+            message: "What would you like to do?",
+            choices:[
+                "Human Resources",
+                "Finance",
+                "Sales",
+                "Marketing",
+                "Sales",
+                "Legal",
+                "Engineering"
+            ]
+        })
+        .then((answer) => {
+        const query = "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
+        connection.query(query, { departmentname: answer.input }, (err, res) => {
+           console.log("Hello");
+            console.table(res);
+            start();
+        });
+        });
+    };
+
+//     const departmentSearch = () => {
+//     const query = 
+//     // "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id	=department.id ORDER BY departmentname"; WHERE departmentname ?
+//     connection.query(query, (err, res) => {
+//         if (err) throw err;
+//         res.forEach(({ id, first_name, last_name, title, department_name, salary, employee_manager }) => {
+//             console.table(res);
+//         });
+//         start();
+
+//     });
+// };
+
+// const managerSearch = () => {
+//     const query = 
+//     "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id	=department.id ORDER BY manager";
+//     connection.query(query, (err, res) => {
+//         if (err) throw err;
+//         res.forEach(({ id, first_name, last_name, title, department_name, salary, employee_manager }) => {
+//             console.table(res);
+//         });
+//         start();
+
+//     });
+// };
