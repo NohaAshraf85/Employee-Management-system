@@ -7,7 +7,8 @@ USE employeeTracker_db;
 CREATE TABLE department (
     id INT AUTO_INCREMENT NOT NULL,
     name VARCHAR (30),
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (name)
 
 );
 
@@ -17,7 +18,8 @@ CREATE TABLE role (
     salary DECIMAL (10,4),
     department_id INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (department_id) REFERENCES department (id)
+    FOREIGN KEY (department_id) REFERENCES department (id),
+    UNIQUE (title)
 
 );
 
