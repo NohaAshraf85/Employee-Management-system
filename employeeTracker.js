@@ -39,7 +39,8 @@ const start = () => {
                 "Add Role",
                 "Remove employee",
                 "Update employee role",
-                "Update employee manager"
+                "Update employee manager",
+                "I am done for now"
             ]
         })
     .then((answer) => {
@@ -80,6 +81,10 @@ const start = () => {
                 updateEmployeeManager();
                 break;
 
+            case "I am done for now":
+                connection.end();
+                break;
+
             default:
                 console.log(`Invalid action: ${answer.action}`);
                 break;
@@ -92,11 +97,6 @@ const employeeSearch = () => {
         "SELECT employee.id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id	=department.id";
         connection.query(query, (err, res) => {
             if (err) throw err;
-            // res.forEach(({ id, first_name, last_name, title, department_name, salary, employee_manager }) => {
-            //     console.log("This should happen one time");
-            //     console.table(res);
-            
-            // });
             console.table(res);
             start();
         });
@@ -109,13 +109,12 @@ async function departmentSearch  () {
             type: "list",
             name: "input",
             message: "What would you like to do?",
-            choices:departments
+            choices: departments
         })
         .then((answer) => {
         const query = "SELECT employee.id,employee.first_name,employee.last_name, role.title,department.id as department_id, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
         
         connection.query(query, { department_id: answer.input }, (err, res) => {
-            
             console.table(res);
             start();
         });
@@ -134,7 +133,6 @@ async function managerSearch  () {
             .then((answer) => {
             const query = "SELECT employee.id as employeeid,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager, manager.id as managerid from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
             connection.query(query, { managerid: answer.input }, (err, res) => {
-              
                 console.table(res);
                 start();
             });
@@ -147,16 +145,7 @@ async function managerSearch  () {
         var departmentArray = [];
 
         var results = connection2.query(query);
-        // connection2.query(query, (err, res) => {
-        //         if (err) throw err;
-        //         res.forEach(({ id, name }) => {
-        //             departmentArray.push({name: name,value:id});
-                
-        //         });
-        //         console.log("Department Array");
-        //         console.table(departmentArray);
-        //         return  departmentArray;
-        //     });
+        
         for(var i=0;i<results.length;i++)
         {
             departmentArray.push({name:results[i].name,value:results[i].id});
@@ -227,7 +216,7 @@ const addDepartment = () => {
             .prompt([{
             name: 'newTitle',
             type: "input",
-            message: "What is the title?"
+            message: "What is the title you would like to add?"
             },
     
             {
@@ -239,7 +228,7 @@ const addDepartment = () => {
             {
             name: 'newDepartment',
             type: "list",
-            message: "What is the department?",
+            message: "What is the department that the role belongs to?",
             choices: departments
             }
         
@@ -248,10 +237,10 @@ const addDepartment = () => {
                
                     connection.query(
                         'INSERT INTO role SET ?', {
-                            title: answer.newTitle,
+                        title: answer.newTitle,
                         salary: answer.newSalary,
                         department_id: answer.newDepartment,
-                                          }, (err, res) => {
+                        }, (err, res) => {
                             if (err) {
                                 console.log(err);
                                 throw err;
@@ -259,9 +248,7 @@ const addDepartment = () => {
                             console.log("New Role has been added");
                         }
                     );
-               
                 start();
-           
             });
         };
 
@@ -285,7 +272,7 @@ async function addEmployee  ()  {
         {
         name: 'newEmployeeRole',
         type: "list",
-        message: "What is the employee's role?",
+        message: "What is the employee's title?",
         choices: roles
         },
 
@@ -305,12 +292,12 @@ async function addEmployee  ()  {
                     first_name: answer.newEmployeeFirstName,
                     last_name: answer.newEmployeeLastName,
                     role_id: answer.newEmployeeRole,
-                                      }, (err, res) => {
+                    }, (err, res) => {
                         if (err) {
                             console.log(err);
                             throw err;
                         }
-                        console.log("New Employee has been added");
+                        console.log("Please try again!");
                     }
                 );
             }
@@ -326,10 +313,9 @@ async function addEmployee  ()  {
                             console.log(err);
                             throw err;
                         }
-                        console.log("New Employee has been added");
+                        console.log("New Employee has been added ...\n");
                     }
                 );
-
             }
             start();
        
