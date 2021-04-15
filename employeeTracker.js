@@ -40,7 +40,7 @@ const start = () => {
                 "Remove employee",
                 "Update employee role",
                 "Update employee manager",
-                "I am done for now"
+                "Quit"
             ]
         })
     .then((answer) => {
@@ -81,7 +81,8 @@ const start = () => {
                 updateEmployeeManager();
                 break;
 
-            case "I am done for now":
+            case "Quit":
+                console.log("Goodbye!");
                 connection.end();
                 break;
 
