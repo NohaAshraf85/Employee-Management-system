@@ -34,12 +34,15 @@ const start = () => {
                 "View all employees",
                 "View all employees by department",
                 "View all employees by manager",
-                "Add employee",
+                "View all employees by role",
+                "View all departments",
+                "View all roles",
                 "Add Department",
                 "Add Role",
-                "Remove employee",
+                "Add employee",
                 "Update employee role",
-                "Update employee manager",
+                // "Remove employee",
+                // "Update employee manager",
                 "Quit"
             ]
         })
@@ -57,10 +60,15 @@ const start = () => {
                 managerSearch();
                 break;
 
-            case "Add employee":
-                addEmployee();
+            case "View all employees by role":
+                viewEmployeesByRole();
                 break;
-
+            case "View all departments":
+                viewDepartments();
+                break;
+            case "View all roles":
+                viewRoles();
+                break;
             case "Add Department":
                 addDepartment();
                 break;
@@ -69,12 +77,16 @@ const start = () => {
                 addRole();
                 break;
 
-            case "Remove employee":
-                removeEmployee();
+            case "Add employee":
+                addEmployee();
                 break;
 
             case "Update employee role":
                 updateEmployee();
+                break;
+
+            case "Remove employee":
+                removeEmployee();
                 break;
 
             case "Update employee manager":
@@ -103,7 +115,7 @@ const employeeSearch = () => {
         });
     };
 
-async function departmentSearch  () {
+async function departmentSearch () {
     var departments = await getDepartments();
     inquirer
         .prompt({
@@ -122,23 +134,75 @@ async function departmentSearch  () {
         });
     };
 
-async function managerSearch  () {
+async function managerSearch () {
     var managers = await getManager();   
     inquirer
             .prompt({
                 type: "list",
                 name: "input",
-                message: "What would you like to do?",
+                message: "Please select the manager?",
                 choices:managers
             })
             .then((answer) => {
-            const query = "SELECT employee.id as employeeid,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager, manager.id as managerid from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
+            const query = "SELECT employee.id as id,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager, manager.id as managerid from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
             connection.query(query, { managerid: answer.input }, (err, res) => {
+
+
+            var employees=[];
+            res.forEach(({ id, first_name, last_name, title, departmentname, salary, manager }) => {
+            employees.push({id:id,first_name:first_name, last_name:last_name,department:departmentname, title:title, salary:salary, manager:manager});
+           
+            });
+            console.table(employees); 
+
+               // console.table(res);
+                start();
+            });
+            });
+    };
+
+    async function viewRoles () {
+        var roles = await getRoles();
+        var roleTable=[];
+        roles.forEach(({ name, value }) => {
+            roleTable.push({id:value,title:name});
+           
+          });
+       
+        console.table(roleTable); 
+        start(); 
+    }
+    async function viewDepartments () {
+        var departments = await getDepartments();
+        var departmentsTable=[];
+        roles.forEach(({ name, value }) => {
+            departmentsTable.push({id:value,title:name});
+           
+          });
+        console.table(departmentsTable); 
+        start(); 
+    }
+
+    async function viewEmployeesByRole () {
+    var roles = await getRoles();
+   
+    inquirer
+            .prompt({
+                type: "list",
+                name: "input",
+                message: "Which Role would you like to view?",
+                choices: roles
+            })
+            .then((answer) => {
+            const query = "SELECT employee.id as employeeid,employee.first_name,employee.last_name, role.title, department.name as departmentname, salary, concat(manager.first_name,' ',manager.last_name) as manager, role.id as roleid from employee left outer join employee as manager on employee.manager_id=manager.id inner join role on employee.role_id=role.id inner join department on role.department_id =department.id HAVING ?";
+            connection.query(query, { roleid: answer.input }, (err, res) => {
                 console.table(res);
                 start();
             });
             });
     };
+
+    
 
  async function getDepartments() {
     const query = 
@@ -323,55 +387,55 @@ async function addEmployee  ()  {
         });
     };
 
-    async function updateEmployee  ()  {
-        var roles = await getRoles();
-        var employees = await getManager();
-        
-        inquirer
-            .prompt([
-                {
-                    name: 'updateEmployee',
-                    type: "list",
-                    message: "Which employee would you like to update their role?",
-                    choices: employees
-                    },
-
-                
-            {
-            name: 'newEmployeeRole',
-            type: "list",
-            message: "What is the employee's role?",
-            choices: roles
-            },
+async function updateEmployee  ()  {
+    var roles = await getRoles();
+    var employees = await getManager();
     
-           
+    inquirer
+        .prompt([
+            {
+                name: 'updateEmployee',
+                type: "list",
+                message: "Which employee would you like to update their role?",
+                choices: employees
+                },
+
+            
+        {
+        name: 'newEmployeeRole',
+        type: "list",
+        message: "What is the employee's role?",
+        choices: roles
+        },
+
         
-        ])
-            .then((answer) => {
+    
+    ])
+        .then((answer) => {
 
 
-                const query = connection.query(
-                    'UPDATE employee SET ? WHERE ?',
-                    [
-                      {
-                        role_id: answer.newEmployeeRole,
-                      },
-                      {
-                        id: answer.updateEmployee,
-                      },
-                    ],
-                    (err, res) => {
-                      if (err) throw err;
-                      console.log(`${res.affectedRows} employees updated!\n`);
-                      
-                    }
-                  );
+            const query = connection.query(
+                'UPDATE employee SET ? WHERE ?',
+                [
+                    {
+                    role_id: answer.newEmployeeRole,
+                    },
+                    {
+                    id: answer.updateEmployee,
+                    },
+                ],
+                (err, res) => {
+                    if (err) throw err;
+                    console.log(`${res.affectedRows} employees updated!\n`);
+                    
+                }
+                );
 
-                
-                start();
-           
-            });
-        };
+            
+            start();
+        
+        });
+    };
 
     
 
