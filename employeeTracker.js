@@ -121,7 +121,7 @@ async function departmentSearch () {
         .prompt({
             type: "list",
             name: "input",
-            message: "What would you like to do?",
+            message: "Please choose a department you would like to view?",
             choices: departments
         })
         .then((answer) => {
