@@ -175,7 +175,7 @@ async function managerSearch () {
     async function viewDepartments () {
         var departments = await getDepartments();
         var departmentsTable=[];
-        roles.forEach(({ name, value }) => {
+        departments.forEach(({ name, value }) => {
             departmentsTable.push({id:value,title:name});
            
           });
