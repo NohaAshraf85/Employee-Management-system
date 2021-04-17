@@ -50,20 +50,6 @@ Within the Integrated Terminal a list of questions prompted through the usage of
 
 The list of questions are designed to help the user chose from a list of questions what they wish to accomplish.
 
-"View all employees",
-                "View all employees by department",
-                "View all employees by manager",
-                "View all employees by role",
-                "View all departments",
-                "View all roles",
-                "Add Department",
-                "Add Role",
-                "Add employee",
-                "Update employee role",
-                // "Remove employee",
-                // "Update employee manager",
-                "Quit"
-
 ### View all employees
 In the first option the system provides is to View all employees in the system, this option provides the user with a table that lists all the information in the database using JOINTS as illustrated below.
 
@@ -84,6 +70,38 @@ In the fourth option the system provides is to View all employees by role, this 
 
 ![Demo](./assets/viewAllEmployeesByRole.gif)
 
+### View all departments
+In the fifth option the system provides a list of the availabile departments in the database of the Employee Management System.
+
+![Demo](./assets/viewAllDepartments.gif)
+
+### View all roles
+In the sixth option the system provides a list of the availabile roles in the database of the Employee Management System.
+
+![Demo](./assets/viewAllRoles.gif)
+
+### Add Department
+In the seventh option the system provides the user with the option to add a new department to the database of the Employee Management System using the CLI. Once the user chooses to add a department, a question will prompt the user to enter the name of the department they would like to add, once the department is added a message will appeare that a new department has been added. 
+
+![Demo](./assets/addDepartment1.gif)
+
+### Add Role
+In the eighth option the system provides the user with the option to add a new role to the database of the Employee Management System using the CLI. Once the user chooses to add a role, a question will prompt the user to enter the name of the role they would like to add and the salary that corresponds to that new role, once the role is added a message will appeare that a new role has been added. 
+
+![Demo](./assets/addRole1.gif)
+
+### Add Employee
+In the ninth option the system provides the user with the option to add a new employee to the database of the Employee Management System using the CLI. Once the user chooses to add an employee, a question will prompt the user to enter the first name, last name chose a title from the list of titles available and chose the manager from the list of employees available in the database, once the employee is added a message will appeare that a new employee has been added. 
+
+![Demo](./assets/addEmployee.gif)
+
+### Update employee role
+In the ninth option the system provides the user with the option to update an employee's role in the database of the Employee Management System using the CLI. Once the user chooses to update an employee's role, the user will be presented with a list of choices of available employees to chose which employee they wish to change the rold of, upon chosing the employee, the user will be presented with a list of choices from the available roles to change the employee's role to. 
+
+![Demo](./assets/updateEmployeeRole.gif)
+
+### Quit
+Once the user is satisfied with all the updates, they can chose quit and the application quits and shows the user a Good Bye message.
 
 ## License
 ![APM](https://img.shields.io/apm/l/README)
