@@ -2,7 +2,7 @@
 ## Description
 The Employee Management System is a Command Line Application (CLI), that provides the user with the ability to add and update the information that are related to the employee in a company.
 
-For a full demo of the application: [Employee-Management-System](https://drive.google.com/file/d/1vHbpQcUUHZ_-IGCeIEn4AeJt-71Leg8h/view)
+For a full demo of the application: [Employee-Management-System](https://drive.google.com/file/d/12OrABRF4db-PyWqbZrTnihA8RzW7JsPh/view)
 
 ## Table of Contents
 
