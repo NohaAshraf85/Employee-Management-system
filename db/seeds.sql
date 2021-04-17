@@ -45,13 +45,14 @@ VALUE ("Salesperson", "100000", 4);
 
 -- employee table
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUE ("Mike", "Chan", 1, null);
+VALUE ("Mike", "Chan", 1, 2);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUE ("Ashley", "Rodriguez", 2, 1);
+VALUE ("Ashley", "Rodriguez", 2, null);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUE ("Malia", "Brown", 2, null); 
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUE ("Tom", "Allen", 6, null);
+

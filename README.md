@@ -48,7 +48,42 @@ Upon opening Visual Studio Code (VSC), right click on the `<employeeTracker.js>`
 
 Within the Integrated Terminal a list of questions prompted through the usage of the inquirer package.
 
-The list of questions are designed to help the user chose from a list of questions what they wish to accomplish, the first promt shall provide the user with the option to chose what is the action they want to perform first, as illustrated below
+The list of questions are designed to help the user chose from a list of questions what they wish to accomplish.
+
+"View all employees",
+                "View all employees by department",
+                "View all employees by manager",
+                "View all employees by role",
+                "View all departments",
+                "View all roles",
+                "Add Department",
+                "Add Role",
+                "Add employee",
+                "Update employee role",
+                // "Remove employee",
+                // "Update employee manager",
+                "Quit"
+
+### View all employees
+In the first option the system provides is to View all employees in the system, this option provides the user with a table that lists all the information in the database using JOINTS as illustrated below.
+
+![Demo](./assets/viewAllEmployees.gif)
+
+### View all employees by department
+In the second option the system provides is to View all employees by department, this option prompts the user to answer another question that provides a choice for the department the user wished to view the employees that belong to it. 
+
+![Demo](./assets/viewAllEmployeesByDepartment.gif)
+
+### View all employees by manager
+In the third option the system provides is to View all employees by manager, this option prompts the user to chose froma list which manager the user wished to view the employees that belong to him/her.
+
+![Demo](./assets/viewEmployeesByManager.gif)
+
+### View all employees by role
+In the fourth option the system provides is to View all employees by role, this option prompts the user to chose froma list which role the user wished to view .
+
+![Demo](./assets/viewAllEmployeesByRole.gif)
+
 
 ## License
 ![APM](https://img.shields.io/apm/l/README)
